@@ -16,6 +16,8 @@ from sklearn.ensemble import RandomForestClassifier
 
 from sklearn.neighbors import KNeighborsClassifier
 
+from sklearn.svm import SVC
+
 # Load the dataset
 df = pd.read_csv("data/diabetes.csv")
 
@@ -239,3 +241,35 @@ print(confusion_matrix(y_test, knn_predictions))
 
 print("\nClassification Report:")
 print(classification_report(y_test, knn_predictions))
+
+
+# ======================================================
+# Support Vector Machine (SVM)
+# ======================================================
+
+print("\n" + "=" * 50)
+print("Training Support Vector Machine (SVM)")
+print("=" * 50)
+
+# Create SVM model
+svm_model = SVC(
+    kernel="rbf",
+    random_state=42
+)
+
+# Train model
+svm_model.fit(X_train_scaled, y_train)
+
+# Make predictions
+svm_predictions = svm_model.predict(X_test_scaled)
+
+# Calculate accuracy
+svm_accuracy = accuracy_score(y_test, svm_predictions)
+
+print(f"\nAccuracy: {svm_accuracy:.4f}")
+
+print("\nConfusion Matrix:")
+print(confusion_matrix(y_test, svm_predictions))
+
+print("\nClassification Report:")
+print(classification_report(y_test, svm_predictions))
