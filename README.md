@@ -72,37 +72,31 @@ The project demonstrates the complete Machine Learning lifecycle from **data pre
 
 ## 🏠 Home Page
 
-> Replace with your screenshot
-
-```markdown
-![Home](images/app_home.png)
-```
+![Home Page](images/app_home.png)
 
 ---
 
 ## 📊 Prediction Result
 
-```markdown
-![Prediction](images/prediction_positive.png)
-```
+![Prediction Result](images/prediction_positive.png)
 
 ---
 
 ## 📈 Moderate Risk Prediction
 
-```markdown
-![Moderate](images/prediction_moderate.png)
-```
+![Moderate Risk](images/prediction_moderate.png)
 
 ---
 
 ## ✅ Low Risk Prediction
 
-```markdown
 ![Low Risk](images/prediction_negative.png)
-```
 
 ---
+
+## 📊 Correlation Heatmap
+
+![Correlation Heatmap](images/correlation_heatmap.png)
 
 # 📂 Project Structure
 
