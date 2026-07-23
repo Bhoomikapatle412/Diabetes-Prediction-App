@@ -12,6 +12,8 @@ from sklearn.metrics import (
 
 from sklearn.tree import DecisionTreeClassifier
 
+from sklearn.ensemble import RandomForestClassifier
+
 # Load the dataset
 df = pd.read_csv("data/diabetes.csv")
 
@@ -176,3 +178,33 @@ print("\nClassification Report:")
 print(classification_report(y_test, dt_predictions))
 
 
+# ======================================================
+# Random Forest Classifier
+# ======================================================
+
+print("\n" + "=" * 50)
+print("Training Random Forest Classifier")
+print("=" * 50)
+
+# Create Random Forest model
+random_forest = RandomForestClassifier(
+    n_estimators=100,
+    random_state=42
+)
+
+# Train model
+random_forest.fit(X_train_scaled, y_train)
+
+# Make predictions
+rf_predictions = random_forest.predict(X_test_scaled)
+
+# Calculate accuracy
+rf_accuracy = accuracy_score(y_test, rf_predictions)
+
+print(f"\nAccuracy: {rf_accuracy:.4f}")
+
+print("\nConfusion Matrix:")
+print(confusion_matrix(y_test, rf_predictions))
+
+print("\nClassification Report:")
+print(classification_report(y_test, rf_predictions))
