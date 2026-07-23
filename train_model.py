@@ -1,5 +1,7 @@
 import pandas as pd
 import numpy as np
+from sklearn.model_selection import train_test_split
+
 
 # Load the dataset
 df = pd.read_csv("data/diabetes.csv")
@@ -47,3 +49,26 @@ print(df.isnull().sum())
 duplicate_count = df.duplicated().sum()
 
 print("\nDuplicate Records:", duplicate_count)
+
+
+# Separate features and target variable
+X = df.drop("Outcome", axis=1)
+y = df["Outcome"]
+
+print("\nFeatures Shape:", X.shape)
+print("Target Shape:", y.shape)
+
+
+# Split dataset into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(
+    X,
+    y,
+    test_size=0.2,
+    random_state=42,
+    stratify=y
+)
+
+print("\nTraining Features Shape:", X_train.shape)
+print("Testing Features Shape:", X_test.shape)
+print("Training Labels Shape:", y_train.shape)
+print("Testing Labels Shape:", y_test.shape)
