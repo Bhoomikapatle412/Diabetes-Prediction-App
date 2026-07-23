@@ -14,6 +14,8 @@ from sklearn.tree import DecisionTreeClassifier
 
 from sklearn.ensemble import RandomForestClassifier
 
+from sklearn.neighbors import KNeighborsClassifier
+
 # Load the dataset
 df = pd.read_csv("data/diabetes.csv")
 
@@ -208,3 +210,32 @@ print(confusion_matrix(y_test, rf_predictions))
 
 print("\nClassification Report:")
 print(classification_report(y_test, rf_predictions))
+
+
+# ======================================================
+# K-Nearest Neighbors (KNN)
+# ======================================================
+
+print("\n" + "=" * 50)
+print("Training K-Nearest Neighbors (KNN)")
+print("=" * 50)
+
+# Create KNN model
+knn_model = KNeighborsClassifier(n_neighbors=5)
+
+# Train model
+knn_model.fit(X_train_scaled, y_train)
+
+# Make predictions
+knn_predictions = knn_model.predict(X_test_scaled)
+
+# Calculate accuracy
+knn_accuracy = accuracy_score(y_test, knn_predictions)
+
+print(f"\nAccuracy: {knn_accuracy:.4f}")
+
+print("\nConfusion Matrix:")
+print(confusion_matrix(y_test, knn_predictions))
+
+print("\nClassification Report:")
+print(classification_report(y_test, knn_predictions))
