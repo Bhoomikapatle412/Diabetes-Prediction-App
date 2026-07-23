@@ -3,6 +3,13 @@ import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import (
+    accuracy_score,
+    confusion_matrix,
+    classification_report
+)
+
 # Load the dataset
 df = pd.read_csv("data/diabetes.csv")
 
@@ -12,6 +19,11 @@ print("Dataset Shape:", df.shape)
 
 # Display the first 5 rows
 print(df.head())
+
+# ======================================================
+# Data Cleaning and Preprocessing
+# ======================================================
+
 
 #Identify Invalid Zero Values
 # Columns that should not contain zero values
@@ -96,3 +108,39 @@ print(X_train_scaled.mean(axis=0))
 
 print("\nStandard Deviation of Scaled Training Data:")
 print(X_train_scaled.std(axis=0))
+
+# ======================================================
+# Model Training and Evaluation
+# ======================================================
+
+# ======================================================
+# Logistic Regression Model
+# ======================================================
+
+print("\n" + "=" * 50)
+print("Training Logistic Regression Model")
+print("=" * 50)
+
+# Create model
+logistic_model = LogisticRegression(random_state=42)
+
+# Train model
+logistic_model.fit(X_train_scaled, y_train)
+
+# Make predictions
+y_pred = logistic_model.predict(X_test_scaled)
+
+# ======================================================
+# Model Evaluation
+# ======================================================
+
+accuracy = accuracy_score(y_test, y_pred)
+
+print(f"\nAccuracy: {accuracy:.4f}")
+
+print("\nConfusion Matrix:")
+print(confusion_matrix(y_test, y_pred))
+
+print("\nClassification Report:")
+print(classification_report(y_test, y_pred))
+
