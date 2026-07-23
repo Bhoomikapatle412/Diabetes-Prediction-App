@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
-
+from sklearn.preprocessing import StandardScaler
 
 # Load the dataset
 df = pd.read_csv("data/diabetes.csv")
@@ -72,3 +72,27 @@ print("\nTraining Features Shape:", X_train.shape)
 print("Testing Features Shape:", X_test.shape)
 print("Training Labels Shape:", y_train.shape)
 print("Testing Labels Shape:", y_test.shape)
+
+# ======================================================
+# Feature Scaling
+# ======================================================
+
+# Initialize the StandardScaler
+scaler = StandardScaler()
+
+# Fit the scaler on the training data and transform it
+X_train_scaled = scaler.fit_transform(X_train)
+
+# Transform the test data using the same scaler
+X_test_scaled = scaler.transform(X_test)
+
+# Verify the scaled data shapes
+print("\nScaled Training Shape:", X_train_scaled.shape)
+print("Scaled Testing Shape:", X_test_scaled.shape)
+
+# Verify scaling statistics
+print("\nMean of Scaled Training Data:")
+print(X_train_scaled.mean(axis=0))
+
+print("\nStandard Deviation of Scaled Training Data:")
+print(X_train_scaled.std(axis=0))
