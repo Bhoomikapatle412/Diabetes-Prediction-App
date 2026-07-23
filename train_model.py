@@ -10,6 +10,8 @@ from sklearn.metrics import (
     classification_report
 )
 
+from sklearn.tree import DecisionTreeClassifier
+
 # Load the dataset
 df = pd.read_csv("data/diabetes.csv")
 
@@ -143,4 +145,34 @@ print(confusion_matrix(y_test, y_pred))
 
 print("\nClassification Report:")
 print(classification_report(y_test, y_pred))
+# ======================================================
+# Decision Tree Classifier
+# ======================================================
+
+print("\n" + "=" * 50)
+print("Training Decision Tree Classifier")
+print("=" * 50)
+
+# Create Decision Tree model
+decision_tree = DecisionTreeClassifier(
+    random_state=42
+)
+
+# Train model
+decision_tree.fit(X_train_scaled, y_train)
+
+# Make predictions
+dt_predictions = decision_tree.predict(X_test_scaled)
+
+# Calculate accuracy
+dt_accuracy = accuracy_score(y_test, dt_predictions)
+
+print(f"\nAccuracy: {dt_accuracy:.4f}")
+
+print("\nConfusion Matrix:")
+print(confusion_matrix(y_test, dt_predictions))
+
+print("\nClassification Report:")
+print(classification_report(y_test, dt_predictions))
+
 
