@@ -2,105 +2,132 @@
 
 # 🩺 Diabetes Prediction App
 
-### Predict Diabetes Risk using Machine Learning & Streamlit
+### Predict Diabetes Risk Using Machine Learning & Streamlit
 
-A modern web application that predicts the likelihood of diabetes using a trained **Random Forest Machine Learning model**.
+[![Live Demo](https://img.shields.io/badge/🚀%20Live%20Demo-Streamlit-red?style=for-the-badge&logo=streamlit)](https://diabetes-prediction-app-bhoomika.streamlit.app/)
+![Python](https://img.shields.io/badge/Python-3.x-blue?style=for-the-badge&logo=python)
+![Scikit-Learn](https://img.shields.io/badge/Scikit--Learn-Machine%20Learning-orange?style=for-the-badge&logo=scikitlearn)
+![Streamlit](https://img.shields.io/badge/Streamlit-Web%20App-red?style=for-the-badge&logo=streamlit)
+![Pandas](https://img.shields.io/badge/Pandas-Data%20Analysis-150458?style=for-the-badge&logo=pandas)
+![GitHub](https://img.shields.io/badge/GitHub-Portfolio-black?style=for-the-badge&logo=github)
 
-<p>
+A Machine Learning web application that predicts the likelihood of diabetes based on patient health parameters using a trained **Random Forest Classifier**.
 
-![Python](https://img.shields.io/badge/Python-3.11-blue?style=for-the-badge&logo=python)
-![Streamlit](https://img.shields.io/badge/Streamlit-App-red?style=for-the-badge&logo=streamlit)
-![Scikit-Learn](https://img.shields.io/badge/Scikit--Learn-ML-orange?style=for-the-badge&logo=scikitlearn)
-![Pandas](https://img.shields.io/badge/Pandas-Data%20Analysis-purple?style=for-the-badge&logo=pandas)
-
-</p>
-
-⭐ If you like this project, don't forget to star the repository!
+⭐ **If you like this project, don't forget to give it a star!**
 
 </div>
 
 ---
 
-# 📖 About The Project
+# 🌐 Live Demo
 
-Diabetes is one of the most common chronic diseases worldwide.
+🚀 **Try the Application Here**
 
-This project uses **Machine Learning** to predict whether a patient is likely to have diabetes based on important health parameters such as:
+### https://diabetes-prediction-app-bhoomika.streamlit.app/
 
-- Glucose Level
-- Blood Pressure
-- BMI
-- Insulin
-- Age
-- Pregnancies
-- Skin Thickness
-- Diabetes Pedigree Function
+---
 
-The application provides:
+# 📖 Project Overview
 
-- Instant Prediction
+Diabetes is one of the most common chronic diseases worldwide, making early prediction extremely valuable.
+
+This project uses **Machine Learning** to analyze patient health information and predict the likelihood of diabetes.
+
+The application provides an intuitive interface where users can enter health parameters and instantly receive:
+
+- Diabetes Prediction
 - Prediction Probability
 - Risk Level
 - Health Recommendations
 
-Built using **Python**, **Scikit-Learn**, and **Streamlit**.
+The project demonstrates the complete Machine Learning lifecycle from **data preprocessing to deployment**.
 
----
-
-# 🚀 Live Demo
-
-Coming Soon...
+> **Disclaimer:** This application is intended for educational purposes only and should not be considered a substitute for professional medical advice.
 
 ---
 
 # ✨ Features
 
-✅ Clean & Interactive UI
+✅ Interactive Streamlit Web Application
 
-✅ Machine Learning Prediction
+✅ Clean & Responsive User Interface
 
-✅ Random Forest Classifier
+✅ Random Forest Machine Learning Model
 
-✅ Probability Score
+✅ Prediction Probability
 
-✅ Risk Classification
+✅ Low / Moderate / High Risk Classification
 
-✅ Health Recommendations
+✅ Personalized Health Recommendations
 
-✅ Fully Responsive Layout
+✅ Data Preprocessing & Feature Scaling
 
-✅ Educational Medical Disclaimer
+✅ Real-time Prediction
 
----
-
-# 🖼️ Application Preview
-
-## Home Screen
-
-> Add Screenshot
-
-![Home](images/home.png)
+✅ Fully Deployed on Streamlit Cloud
 
 ---
 
-## Prediction Result
+# 📸 Application Screenshots
 
-> Add Screenshot
+## 🏠 Home Page
 
-![Prediction](images/prediction.png)
+> Replace with your screenshot
+
+```markdown
+![Home](images/app_home.png)
+```
 
 ---
 
-# 🏗️ Project Structure
+## 📊 Prediction Result
+
+```markdown
+![Prediction](images/prediction_positive.png)
+```
+
+---
+
+## 📈 Moderate Risk Prediction
+
+```markdown
+![Moderate](images/prediction_moderate.png)
+```
+
+---
+
+## ✅ Low Risk Prediction
+
+```markdown
+![Low Risk](images/prediction_negative.png)
+```
+
+---
+
+# 📂 Project Structure
 
 ```text
 Diabetes-Prediction-App
 │
-├── data
-├── images
-├── models
-├── notebooks
-├── .streamlit
+├── .streamlit/
+│   └── config.toml
+│
+├── data/
+│   └── diabetes.csv
+│
+├── images/
+│   ├── app_home.png
+│   ├── prediction_positive.png
+│   ├── prediction_negative.png
+│   ├── prediction_moderate.png
+│   └── correlation_heatmap.png
+│
+├── models/
+│   ├── random_forest_model.pkl
+│   └── scaler.pkl
+│
+├── notebooks/
+│   └── diabetes_eda.ipynb
 │
 ├── app.py
 ├── train_model.py
@@ -111,89 +138,119 @@ Diabetes-Prediction-App
 
 ---
 
-# ⚙️ Tech Stack
+# 📊 Dataset
 
-| Category | Technologies |
-|----------|--------------|
-| Programming | Python |
-| Machine Learning | Scikit-Learn |
-| Data Analysis | Pandas, NumPy |
-| Visualization | Matplotlib |
-| Web Framework | Streamlit |
-| Model Saving | Joblib |
-| Version Control | Git & GitHub |
+**Dataset:** Pima Indians Diabetes Dataset
+
+| Information | Value |
+|-------------|------:|
+| Records | 768 |
+| Features | 8 |
+| Target | Outcome |
+
+### Input Features
+
+- Pregnancies
+- Glucose
+- Blood Pressure
+- Skin Thickness
+- Insulin
+- BMI
+- Diabetes Pedigree Function
+- Age
 
 ---
 
-# 🤖 Machine Learning Models
+# 🤖 Machine Learning Models Evaluated
 
-Five classification algorithms were trained and evaluated.
+Five different classification algorithms were trained and evaluated.
 
 | Model | Accuracy |
 |--------|----------|
 | 🥇 Random Forest | **77.92%** |
-| 🥈 KNN | 75.32% |
-| 🥉 SVM | 74.03% |
+| 🥈 K-Nearest Neighbors | 75.32% |
+| 🥉 Support Vector Machine | 74.03% |
 | Logistic Regression | 70.78% |
 | Decision Tree | 68.18% |
 
-**Selected Model:** Random Forest
+**Selected Model:** Random Forest Classifier
 
 ---
 
-# 📊 Workflow
+# ⚙️ Tech Stack
+
+| Category | Technology |
+|-----------|------------|
+| Language | Python |
+| Machine Learning | Scikit-Learn |
+| Data Analysis | Pandas, NumPy |
+| Visualization | Matplotlib |
+| Web Framework | Streamlit |
+| Model Serialization | Joblib |
+| Notebook | Jupyter |
+| Version Control | Git & GitHub |
+
+---
+
+# 🔄 Machine Learning Workflow
 
 ```text
-Dataset
-   │
-   ▼
-Data Cleaning
-   │
-   ▼
-Exploratory Data Analysis
-   │
-   ▼
-Feature Scaling
-   │
-   ▼
-Train ML Models
-   │
-   ▼
-Model Evaluation
-   │
-   ▼
-Best Model Selection
-   │
-   ▼
-Save Model
-   │
-   ▼
-Deploy using Streamlit
+                 Diabetes Dataset
+                         │
+                         ▼
+                Data Cleaning
+                         │
+                         ▼
+           Exploratory Data Analysis
+                         │
+                         ▼
+              Missing Value Handling
+                         │
+                         ▼
+                 Feature Scaling
+                         │
+                         ▼
+              Train ML Algorithms
+                         │
+                         ▼
+             Model Evaluation
+                         │
+                         ▼
+          Select Best Performing Model
+                         │
+                         ▼
+              Save Model with Joblib
+                         │
+                         ▼
+            Develop Streamlit App
+                         │
+                         ▼
+           Deploy on Streamlit Cloud
 ```
 
 ---
 
-# 📦 Installation
+# 🚀 Installation
 
-Clone Repository
+### Clone the Repository
 
 ```bash
 git clone https://github.com/Bhoomikapatle412/Diabetes-Prediction-App.git
 ```
 
-Move into project
+### Navigate to Project
 
 ```bash
 cd Diabetes-Prediction-App
 ```
 
-Install Dependencies
+### Install Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-Run App
+### Run the Application
 
 ```bash
 streamlit run app.py
@@ -208,19 +265,33 @@ The application predicts:
 - Diabetes Status
 - Prediction Probability
 - Risk Level
-- Personalized Health Advice
+- Health Recommendations
 
 ---
 
-# 🔮 Future Enhancements
+# 🔮 Future Improvements
 
-- User Login
-- PDF Medical Reports
-- Cloud Deployment
+- User Authentication
+- PDF Report Generation
 - Explainable AI (SHAP)
-- Mobile Friendly Design
-- Dark Mode
+- Cloud Database Integration
+- Mobile-Friendly Design
+- Dark Theme
 - Multi-language Support
+
+---
+
+# 🤝 Contributing
+
+Contributions are welcome!
+
+If you'd like to improve this project:
+
+1. Fork the repository
+2. Create a feature branch
+3. Commit your changes
+4. Push to your branch
+5. Open a Pull Request
 
 ---
 
@@ -228,23 +299,32 @@ The application predicts:
 
 ## Bhoomika Patle
 
-📌 Passionate about Data Science, Machine Learning and AI.
+📧 Aspiring Data Scientist & Machine Learning Enthusiast
 
-GitHub:
+### GitHub
+
 https://github.com/Bhoomikapatle412
 
 ---
 
 # ⭐ Support
 
-If you enjoyed this project,
+If you found this project helpful,
 
-Give it a ⭐ on GitHub!
+⭐ **Please consider starring this repository!**
+
+It helps others discover the project and motivates future improvements.
+
+---
+
+# 📄 License
+
+This project is licensed under the MIT License.
 
 ---
 
 <div align="center">
 
-Made with ❤️ using Python & Streamlit
+### ❤️ Built with Python, Scikit-Learn & Streamlit
 
 </div>
