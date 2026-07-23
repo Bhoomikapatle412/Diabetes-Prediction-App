@@ -315,6 +315,34 @@ print("=" * 60)
 
 print(results_df)
 
+# Save results to CSV
+results_df.to_csv("model_results.csv", index=False)
+
+# Create a professional table image
+import matplotlib.pyplot as plt
+
+fig, ax = plt.subplots(figsize=(8, 2.8))
+ax.axis("off")
+
+table = ax.table(
+    cellText=results_df.values,
+    colLabels=results_df.columns,
+    loc="center"
+)
+
+table.auto_set_font_size(False)
+table.set_fontsize(10)
+table.scale(1.2, 1.8)
+
+plt.savefig(
+    "images/model_comparison.png",
+    dpi=300,
+    bbox_inches="tight"
+)
+
+plt.close()
+
+print("\n✅ Model comparison table saved as images/model_comparison.png")
 print("=" * 60)
 
 
