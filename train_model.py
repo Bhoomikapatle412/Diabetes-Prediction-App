@@ -1,22 +1,55 @@
 import pandas as pd
 import numpy as np
+import joblib
+
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 
 from sklearn.linear_model import LogisticRegression
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.svm import SVC
+
 from sklearn.metrics import (
     accuracy_score,
     confusion_matrix,
     classification_report
 )
 
-from sklearn.tree import DecisionTreeClassifier
+# Store model performance
+results = []
 
-from sklearn.ensemble import RandomForestClassifier
+def evaluate_model(model_name, y_true, y_pred):
+    """
+    Evaluate a machine learning model and store its performance.
+    """
 
-from sklearn.neighbors import KNeighborsClassifier
+    report = classification_report(
+        y_true,
+        y_pred,
+        output_dict=True
+    )
 
-from sklearn.svm import SVC
+    accuracy = accuracy_score(y_true, y_pred)
+
+    print("\nAccuracy:", round(accuracy, 4))
+
+    print("\nConfusion Matrix:")
+    print(confusion_matrix(y_true, y_pred))
+
+    print("\nClassification Report:")
+    print(classification_report(y_true, y_pred))
+
+    results.append({
+        "Model": model_name,
+        "Accuracy": round(accuracy, 4),
+        "Precision": round(report["1"]["precision"], 4),
+        "Recall": round(report["1"]["recall"], 4),
+        "F1 Score": round(report["1"]["f1-score"], 4)
+    })
+
+
 
 # Load the dataset
 df = pd.read_csv("data/diabetes.csv")
@@ -142,15 +175,12 @@ y_pred = logistic_model.predict(X_test_scaled)
 # Model Evaluation
 # ======================================================
 
-accuracy = accuracy_score(y_test, y_pred)
+evaluate_model(
+    "Logistic Regression",
+    y_test,
+    y_pred
+)
 
-print(f"\nAccuracy: {accuracy:.4f}")
-
-print("\nConfusion Matrix:")
-print(confusion_matrix(y_test, y_pred))
-
-print("\nClassification Report:")
-print(classification_report(y_test, y_pred))
 # ======================================================
 # Decision Tree Classifier
 # ======================================================
@@ -169,17 +199,14 @@ decision_tree.fit(X_train_scaled, y_train)
 
 # Make predictions
 dt_predictions = decision_tree.predict(X_test_scaled)
-
+# ======================================================
 # Calculate accuracy
-dt_accuracy = accuracy_score(y_test, dt_predictions)
-
-print(f"\nAccuracy: {dt_accuracy:.4f}")
-
-print("\nConfusion Matrix:")
-print(confusion_matrix(y_test, dt_predictions))
-
-print("\nClassification Report:")
-print(classification_report(y_test, dt_predictions))
+#======================================================
+evaluate_model(
+    "Decision Tree",
+    y_test,
+    dt_predictions
+)
 
 
 # ======================================================
@@ -202,16 +229,14 @@ random_forest.fit(X_train_scaled, y_train)
 # Make predictions
 rf_predictions = random_forest.predict(X_test_scaled)
 
+# =====================================================
 # Calculate accuracy
-rf_accuracy = accuracy_score(y_test, rf_predictions)
-
-print(f"\nAccuracy: {rf_accuracy:.4f}")
-
-print("\nConfusion Matrix:")
-print(confusion_matrix(y_test, rf_predictions))
-
-print("\nClassification Report:")
-print(classification_report(y_test, rf_predictions))
+# ====================================================
+evaluate_model(
+    "Random Forest",
+    y_test,
+    rf_predictions
+)
 
 
 # ======================================================
@@ -231,16 +256,14 @@ knn_model.fit(X_train_scaled, y_train)
 # Make predictions
 knn_predictions = knn_model.predict(X_test_scaled)
 
+# =====================================================
 # Calculate accuracy
-knn_accuracy = accuracy_score(y_test, knn_predictions)
-
-print(f"\nAccuracy: {knn_accuracy:.4f}")
-
-print("\nConfusion Matrix:")
-print(confusion_matrix(y_test, knn_predictions))
-
-print("\nClassification Report:")
-print(classification_report(y_test, knn_predictions))
+# ===================================================
+evaluate_model(
+    "K-Nearest Neighbors",
+    y_test,
+    knn_predictions
+)
 
 
 # ======================================================
@@ -263,13 +286,47 @@ svm_model.fit(X_train_scaled, y_train)
 # Make predictions
 svm_predictions = svm_model.predict(X_test_scaled)
 
+# =====================================================
 # Calculate accuracy
-svm_accuracy = accuracy_score(y_test, svm_predictions)
+# ====================================================
+evaluate_model(
+    "Support Vector Machine",
+    y_test,
+    svm_predictions
+)
 
-print(f"\nAccuracy: {svm_accuracy:.4f}")
 
-print("\nConfusion Matrix:")
-print(confusion_matrix(y_test, svm_predictions))
 
-print("\nClassification Report:")
-print(classification_report(y_test, svm_predictions))
+
+# ======================================================
+# Model Comparison
+# ======================================================
+
+results_df = pd.DataFrame(results)
+
+results_df = results_df.sort_values(
+    by="Accuracy",
+    ascending=False
+)
+
+print("\n" + "=" * 60)
+print("MODEL COMPARISON")
+print("=" * 60)
+
+print(results_df)
+
+print("=" * 60)
+
+
+
+
+# ======================================================
+# Save Best Model
+# ======================================================
+
+joblib.dump(random_forest, "models/random_forest_model.pkl")
+joblib.dump(scaler, "models/scaler.pkl")
+
+print("\n" + "=" * 50)
+print("Best model and scaler saved successfully!")
+print("=" * 50)
