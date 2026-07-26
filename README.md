@@ -263,15 +263,24 @@ The application predicts:
 
 ---
 
-# 🔮 Future Improvements
+## 🔮 Future Improvements
 
-- User Authentication
-- PDF Report Generation
-- Explainable AI (SHAP)
-- Cloud Database Integration
-- Mobile-Friendly Design
-- Dark Theme
-- Multi-language Support
+The current application successfully predicts the likelihood of diabetes using machine learning. Future versions of the project aim to improve usability, accuracy, and real-world applicability.
+
+- 🔐 **User Authentication** – Enable secure login and personalized user accounts.
+- 📄 **Prediction Report Generation** – Allow users to download prediction results as a PDF report.
+- 🧠 **Explainable AI (SHAP/LIME)** – Provide feature importance and explain why a prediction was made.
+- ☁️ **Cloud Database Integration** – Store prediction history securely for registered users.
+- 📱 **Responsive Mobile Interface** – Optimize the application for mobile and tablet devices.
+- 🌙 **Dark & Light Theme Support** – Improve accessibility with multiple UI themes.
+- 🌍 **Multi-language Support** – Make the application accessible to users worldwide.
+- 📊 **Interactive Health Dashboard** – Visualize patient health metrics with charts and graphs.
+- 🤖 **Enhanced Model Performance** – Experiment with advanced ensemble and deep learning models.
+- 📈 **Model Monitoring & Retraining** – Continuously improve model accuracy using updated datasets.
+- 🩺 **Health Risk Recommendations** – Suggest lifestyle improvements based on user inputs.
+- 📅 **Prediction History** – Allow users to review their previous prediction records.
+- 📤 **CSV Export** – Export prediction results for further analysis.
+- 🔗 **REST API Integration** – Expose prediction functionality through a REST API for third-party applications.
 
 ---
 
