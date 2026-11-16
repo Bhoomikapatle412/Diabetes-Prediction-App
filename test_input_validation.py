@@ -27,14 +27,14 @@ class TestInputValidation(unittest.TestCase):
         )
 
     def test_negative_glucose(self):
-    self.assertFalse(
-        has_valid_required_measurements(-10, 25.0, 70)
-    )
-    
+        self.assertFalse(
+            has_valid_required_measurements(-10, 25.0, 70)
+        )
+
     def test_negative_bmi(self):
-    self.assertFalse(
-        has_valid_required_measurements(120, -5.0, 70)
-    )
+        self.assertFalse(
+            has_valid_required_measurements(120, -5.0, 70)
+        )
 
 
 if __name__ == "__main__":
