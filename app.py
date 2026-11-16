@@ -135,6 +135,11 @@ st.divider()
 
 if st.button("🔍 Predict Diabetes", use_container_width=True):
 
+        # Validate required health measurements
+    if glucose == 0 or bmi == 0 or blood_pressure == 0:
+        st.warning("Please enter valid health measurements before predicting.")
+        st.stop()
+
     # Create DataFrame
     input_data = pd.DataFrame({
         "Pregnancies": [pregnancies],
