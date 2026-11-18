@@ -36,7 +36,6 @@ class TestInputValidation(unittest.TestCase):
             has_valid_required_measurements(120, -5.0, 70)
         )
 
-  
     def test_none_value(self):
         self.assertFalse(
             has_valid_required_measurements(None, 25.0, 70)
@@ -56,7 +55,6 @@ class TestInputValidation(unittest.TestCase):
         self.assertFalse(
             has_valid_required_measurements(120, 25.0, "abc")
         )
-
 
 
 if __name__ == "__main__":
