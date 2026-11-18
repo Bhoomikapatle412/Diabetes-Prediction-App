@@ -1,5 +1,16 @@
+
 def has_valid_required_measurements(glucose, bmi, blood_pressure):
     """
-    Check whether required health measurements are non-zero.
+    Validate required health measurements.
     """
-    return glucose > 0 and bmi > 0 and blood_pressure > 0
+    try:
+        values = [glucose, bmi, blood_pressure]
+
+        return all(
+            value is not None
+            and float(value) > 0
+            for value in values
+        )
+
+    except (ValueError, TypeError):
+        return False
