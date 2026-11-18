@@ -36,6 +36,28 @@ class TestInputValidation(unittest.TestCase):
             has_valid_required_measurements(120, -5.0, 70)
         )
 
+  
+    def test_none_value(self):
+        self.assertFalse(
+            has_valid_required_measurements(None, 25.0, 70)
+        )
+
+    def test_non_numeric_glucose(self):
+        self.assertFalse(
+            has_valid_required_measurements("abc", 25.0, 70)
+        )
+
+    def test_string_numeric_values(self):
+        self.assertTrue(
+            has_valid_required_measurements("120", "25.0", "70")
+        )
+
+    def test_invalid_blood_pressure(self):
+        self.assertFalse(
+            has_valid_required_measurements(120, 25.0, "abc")
+        )
+
+
 
 if __name__ == "__main__":
     unittest.main()
