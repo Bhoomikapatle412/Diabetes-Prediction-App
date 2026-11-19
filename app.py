@@ -1,50 +1,87 @@
 import streamlit as st
 import pandas as pd
 import joblib
+import time
 
 from input_validation import has_valid_required_measurements
 
-# ======================================================
-# Page Configuration
-# ======================================================
+
+# ==========================================================
+# PAGE CONFIGURATION
+# ==========================================================
 
 st.set_page_config(
     page_title="Diabetes Prediction App",
     page_icon="🩺",
-    layout="wide"
+    layout="wide",
+    initial_sidebar_state="expanded",
 )
 
-# ======================================================
-# Load Model and Scaler
-# ======================================================
 
-model = joblib.load("models/random_forest_model.pkl")
-scaler = joblib.load("models/scaler.pkl")
+# ==========================================================
+# LOAD MODEL
+# ==========================================================
 
-# ======================================================
-# Sidebar
-# ======================================================
+@st.cache_resource
+def load_model():
+    model = joblib.load("models/random_forest_model.pkl")
+    scaler = joblib.load("models/scaler.pkl")
+    return model, scaler
 
-st.sidebar.title("🩺 About")
 
-st.sidebar.info("""
-**Diabetes Prediction App**
+model, scaler = load_model()
 
-This application predicts the likelihood of diabetes using a
-Machine Learning model trained on the Pima Indians Diabetes Dataset.
-""")
 
-st.sidebar.markdown("---")
+# ==========================================================
+# SIDEBAR
+# ==========================================================
 
-st.sidebar.subheader("Model Information")
+with st.sidebar:
 
-st.sidebar.write("**Algorithm:** Random Forest")
-st.sidebar.write("**Accuracy:** 77.92%")
-st.sidebar.write("**Dataset:** Pima Indians Diabetes Dataset")
+    st.image("https://img.icons8.com/color/96/stethoscope.png", width=80)
 
-# ======================================================
-# Main Page
-# ======================================================
+    st.title("Diabetes Prediction")
+
+    st.markdown("---")
+
+    st.subheader("About")
+
+    st.write("""
+    This application predicts the likelihood of diabetes
+    using a Machine Learning model trained on the
+    Pima Indians Diabetes Dataset.
+    """)
+
+    st.markdown("---")
+
+    st.subheader("Model Details")
+
+    st.write("**Algorithm:** Random Forest")
+    st.write("**Accuracy:** 77.92%")
+    st.write("**Dataset:** Pima Indians Diabetes")
+    st.write("**Features Used:** 8")
+
+    st.markdown("---")
+
+    st.subheader("Project")
+
+    st.write("👩‍💻 Developed by")
+    st.success("**Bhoomika Patle**")
+    st.caption("Machine Learning Project")
+
+    st.markdown("---")
+
+    st.info("""
+    **Note**
+
+    This application is intended for educational purposes
+    only and should not replace professional medical advice.
+    """)
+
+
+# ==========================================================
+# MAIN HEADER
+# ==========================================================
 
 st.title("🩺 Diabetes Prediction App")
 
@@ -52,142 +89,213 @@ st.markdown("""
 Welcome to the **Diabetes Prediction App**.
 
 This application uses a **Machine Learning Random Forest model**
-to predict whether a patient is likely to have diabetes based on
-their health information.
+to estimate the likelihood of diabetes based on patient health information.
 
-Fill in the required details and click **Predict Diabetes**.
+Please enter the patient's details below and click **Predict Diabetes**.
 """)
 
-st.divider()
+st.markdown("---")
 
-st.subheader("📋 Enter Patient Information")
 
-# ======================================================
-# Input Fields
-# ======================================================
+# ==========================================================
+# FEATURE INFORMATION
+# ==========================================================
+
+with st.expander("📖 About the Input Features"):
+
+    st.markdown("""
+    ### Explanation of each input
+
+    **Pregnancies**
+    - Number of times the patient has been pregnant.
+
+    **Glucose**
+    - Plasma glucose concentration after a glucose tolerance test.
+
+    **Blood Pressure**
+    - Diastolic blood pressure (mm Hg).
+
+    **Skin Thickness**
+    - Triceps skin fold thickness (mm).
+
+    **Insulin**
+    - 2-Hour serum insulin (mu U/ml).
+
+    **BMI**
+    - Body Mass Index.
+
+    **Diabetes Pedigree Function**
+    - Indicates hereditary likelihood of diabetes.
+
+    **Age**
+    - Age of the patient in years.
+    """)
+
+
+# ==========================================================
+# PATIENT INFORMATION
+# ==========================================================
+
+st.subheader("📋 Patient Information")
 
 col1, col2 = st.columns(2)
 
 with col1:
 
     pregnancies = st.number_input(
-        "Pregnancies",
-        min_value=0,
-        max_value=20,
-        value=1
+        "Pregnancies", min_value=0, max_value=20, value=1, step=1
     )
 
     glucose = st.number_input(
-        "Glucose",
-        min_value=0,
-        max_value=300,
-        value=120
+        "Glucose (mg/dL)", min_value=0, max_value=300, value=120
     )
 
     blood_pressure = st.number_input(
-        "Blood Pressure",
-        min_value=0,
-        max_value=200,
-        value=70
+        "Blood Pressure (mm Hg)", min_value=0, max_value=200, value=70
     )
 
     skin_thickness = st.number_input(
-        "Skin Thickness",
-        min_value=0,
-        max_value=100,
-        value=20
+        "Skin Thickness (mm)", min_value=0, max_value=100, value=20
     )
 
 with col2:
 
     insulin = st.number_input(
-        "Insulin",
-        min_value=0,
-        max_value=900,
-        value=80
+        "Insulin (mu U/ml)", min_value=0, max_value=900, value=80
     )
 
     bmi = st.number_input(
-        "BMI",
-        min_value=0.0,
-        max_value=70.0,
-        value=25.0
+        "BMI", min_value=0.0, max_value=70.0, value=25.0, format="%.1f"
     )
 
     diabetes_pedigree = st.number_input(
         "Diabetes Pedigree Function",
-        min_value=0.0,
-        max_value=3.0,
+        min_value=0.000,
+        max_value=3.000,
         value=0.500,
-        format="%.3f"
+        format="%.3f",
     )
 
     age = st.number_input(
-        "Age",
-        min_value=1,
-        max_value=120,
-        value=30
+        "Age", min_value=1, max_value=120, value=30
     )
 
-st.divider()
+st.markdown("---")
 
-# ======================================================
-# Prediction Button
-# ======================================================
 
-if st.button("🔍 Predict Diabetes", use_container_width=True):
+# ==========================================================
+# INPUT WARNINGS
+# ==========================================================
 
-        # Validate required health measurements
+warnings = []
+
+if glucose == 0:
+    warnings.append("⚠️ Glucose should normally be greater than 0.")
+
+if blood_pressure == 0:
+    warnings.append("⚠️ Blood Pressure should normally be greater than 0.")
+
+if skin_thickness == 0:
+    warnings.append("⚠️ Skin Thickness should normally be greater than 0.")
+
+if insulin == 0:
+    warnings.append("⚠️ Insulin value should normally be greater than 0.")
+
+if bmi == 0:
+    warnings.append("⚠️ BMI should normally be greater than 0.")
+
+for warning in warnings:
+    st.warning(warning)
+
+
+# ==========================================================
+# BUTTONS
+# ==========================================================
+
+button_col1, button_col2 = st.columns(2)
+
+with button_col1:
+
+    predict_button = st.button(
+        "🔍 Predict Diabetes",
+        use_container_width=True,
+        type="primary"
+    )
+
+with button_col2:
+
+    if st.button("🔄 Reset Values", use_container_width=True):
+        st.rerun()
+
+
+# ==========================================================
+# PREDICTION
+# ==========================================================
+
+if predict_button:
+
+    # Validate required measurements before prediction
     if not has_valid_required_measurements(
-    glucose, bmi, blood_pressure
-):
-    st.warning("Please enter valid health measurements before predicting.")
-    st.stop()
-    
-    # Create DataFrame
-    input_data = pd.DataFrame({
-        "Pregnancies": [pregnancies],
-        "Glucose": [glucose],
-        "BloodPressure": [blood_pressure],
-        "SkinThickness": [skin_thickness],
-        "Insulin": [insulin],
-        "BMI": [bmi],
-        "DiabetesPedigreeFunction": [diabetes_pedigree],
-        "Age": [age]
-    })
+        glucose, bmi, blood_pressure
+    ):
+        st.error(
+            "Please enter valid Glucose, BMI, and Blood Pressure values."
+        )
+        st.stop()
 
-    # Scale Input
-    input_scaled = scaler.transform(input_data)
+    with st.spinner("Analyzing patient data..."):
 
-    # Prediction
-    prediction = model.predict(input_scaled)[0]
+        time.sleep(1)
 
-    # Probability
-    probability = model.predict_proba(input_scaled)[0][1]
+        input_data = pd.DataFrame({
+            "Pregnancies": [pregnancies],
+            "Glucose": [glucose],
+            "BloodPressure": [blood_pressure],
+            "SkinThickness": [skin_thickness],
+            "Insulin": [insulin],
+            "BMI": [bmi],
+            "DiabetesPedigreeFunction": [diabetes_pedigree],
+            "Age": [age],
+        })
 
-    # ==================================================
-    # Results
-    # ==================================================
+        input_scaled = scaler.transform(input_data)
 
-    st.divider()
+        prediction = model.predict(input_scaled)[0]
+        probability = model.predict_proba(input_scaled)[0][1]
+
+
+    # ==========================================================
+    # PREDICTION RESULT
+    # ==========================================================
+
+    st.markdown("---")
 
     st.subheader("📊 Prediction Result")
 
-    st.metric(
-        "Probability of Diabetes",
-        f"{probability*100:.2f}%"
-    )
+    metric1, metric2 = st.columns(2)
 
-    if probability < 0.30:
-        risk = "🟢 Low Risk"
+    with metric1:
+        st.metric(
+            "Probability of Diabetes",
+            f"{probability * 100:.2f}%"
+        )
 
-    elif probability < 0.70:
-        risk = "🟡 Moderate Risk"
+    with metric2:
 
-    else:
-        risk = "🔴 High Risk"
+        if probability < 0.30:
+            risk = "🟢 Low Risk"
 
-    st.markdown(f"## {risk}")
+        elif probability < 0.70:
+            risk = "🟡 Moderate Risk"
+
+        else:
+            risk = "🔴 High Risk"
+
+        st.metric("Risk Level", risk)
+
+    st.progress(float(probability))
+
+    st.write("Confidence Level")
 
     if prediction == 1:
 
@@ -201,9 +309,13 @@ if st.button("🔍 Predict Diabetes", use_container_width=True):
             "✅ The model predicts that the patient is unlikely to have Diabetes."
         )
 
-    # ==================================================
-    # Recommendations
-    # ==================================================
+        if probability < 0.30:
+            st.balloons()
+
+
+    # ==========================================================
+    # HEALTH RECOMMENDATIONS
+    # ==========================================================
 
     st.markdown("---")
 
@@ -212,29 +324,80 @@ if st.button("🔍 Predict Diabetes", use_container_width=True):
     if prediction == 1:
 
         st.warning("""
-- Consult a healthcare professional.
-- Monitor your blood glucose regularly.
-- Maintain a healthy and balanced diet.
-- Exercise regularly.
-- Follow your doctor's advice.
-""")
+        ### Recommended Next Steps
+
+        • Consult a healthcare professional.
+
+        • Monitor blood glucose regularly.
+
+        • Follow a healthy, balanced diet.
+
+        • Exercise consistently.
+
+        • Maintain a healthy body weight.
+
+        • Follow your doctor's advice and schedule regular checkups.
+        """)
 
     else:
 
         st.info("""
-- Continue maintaining a healthy lifestyle.
-- Eat a balanced diet.
-- Exercise regularly.
-- Stay physically active.
-- Schedule regular health checkups.
-""")
+        ### Healthy Lifestyle Tips
 
-# ======================================================
-# Footer
-# ======================================================
+        • Continue eating a balanced diet.
+
+        • Stay physically active.
+
+        • Maintain a healthy weight.
+
+        • Drink enough water.
+
+        • Get regular health checkups.
+
+        • Continue your healthy lifestyle.
+        """)
+
+
+    # ==========================================================
+    # DISCLAIMER
+    # ==========================================================
+
+    st.markdown("---")
+
+    st.subheader("ℹ️ Disclaimer")
+
+    st.caption("""
+    This prediction is generated using a Machine Learning model and is intended
+    for educational purposes only.
+
+    It should **not** be considered a medical diagnosis.
+
+    Always consult a qualified healthcare professional for medical advice.
+    """)
+
+
+# ==========================================================
+# FOOTER
+# ==========================================================
 
 st.markdown("---")
 
+col1, col2, col3 = st.columns(3)
+
+with col1:
+    st.metric("Model", "Random Forest")
+
+with col2:
+    st.metric("Accuracy", "77.92%")
+
+with col3:
+    st.metric("Features", "8")
+
+st.markdown(
+    "<center><h5>🩺 Built by <b>Bhoomika Patle</b></h5></center>",
+    unsafe_allow_html=True,
+)
+
 st.caption(
-    "Built by Bhoomika Patle | Diabetes Prediction App using Streamlit & Scikit-learn"
+    "Diabetes Prediction App | Machine Learning Project using Streamlit, Scikit-learn, Pandas & NumPy"
 )
