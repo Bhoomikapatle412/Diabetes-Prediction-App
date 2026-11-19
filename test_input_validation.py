@@ -55,7 +55,21 @@ class TestInputValidation(unittest.TestCase):
         self.assertFalse(
             has_valid_required_measurements(120, 25.0, "abc")
         )
+        
+    def test_nan_glucose(self):
+        self.assertFalse(
+            has_valid_required_measurements(float("nan"), 25.0, 70)
+        )
 
+    def test_infinite_bmi(self):
+        self.assertFalse(
+            has_valid_required_measurements(120, float("inf"), 70)
+        )
+
+    def test_negative_infinity_blood_pressure(self):
+        self.assertFalse(
+            has_valid_required_measurements(120, 25.0, float("-inf"))
+        )
 
 if __name__ == "__main__":
     unittest.main()
